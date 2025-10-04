@@ -64,3 +64,33 @@ jobs:
           aws elasticbeanstalk update-environment \
             --environment-name "$ENV_NAME" \
             --version-label "${{ steps.ver.outputs.VERSION_LABEL }}"
+
+      - name: Wait for EB to be Ready/Green (max ~12 min)
+        shell: bash
+        run: |
+          set -euo pipefail
+          # 72 × 10s = ~12 perc várakozási ablak
+          for i in {1..72}; do
+            read -r STATUS HEALTH <<<"$(aws elasticbeanstalk describe-environments \
+              --application-name "$APP_NAME" \
+              --environment-names "$ENV_NAME" \
+              --query 'Environments[0].[Status,Health]' \
+              --output text)"
+            echo "[$i/72] Status=$STATUS  Health=$HEALTH"
+
+            # a Green-t az új UI néha 'Ok'-nak írja
+            if [[ "$STATUS" == "Ready" && ( "$HEALTH" == "Green" || "$HEALTH" == "Ok" ) ]]; then
+              echo "Environment is Ready & Green/Ok ✅"
+              exit 0
+            fi
+            sleep 10
+          done
+
+          echo "⛔ Timed out waiting for Ready/Green. Latest events:"
+          aws elasticbeanstalk describe-events \
+            --environment-name "$ENV_NAME" \
+            --max-items 25 \
+            --query 'Events[*].[EventDate,Severity,Message]' \
+            --output table || true
+          exit 1
+
