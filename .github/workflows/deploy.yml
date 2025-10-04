@@ -1,0 +1,66 @@
+name: Deploy to Elastic Beanstalk
+
+on:
+  workflow_dispatch:
+  push:
+    branches: [ "main" ]
+
+permissions:
+  id-token: write
+  contents: read
+
+env:
+  AWS_REGION: eu-north-1
+  APP_NAME: mysite
+  ENV_NAME: Mysite-env-1
+  S3_BUCKET: elasticbeanstalk-eu-north-1-330552995255
+
+jobs:
+  deploy:
+    runs-on: ubuntu-latest
+
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Set up Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: "3.11"
+
+      - name: Install dependencies (optional)
+        run: |
+          python -m pip install --upgrade pip
+          if [ -f requirements.txt ]; then pip install -r requirements.txt; fi
+
+      - name: Configure AWS credentials (OIDC)
+        uses: aws-actions/configure-aws-credentials@v4
+        with:
+          role-to-assume: arn:aws:iam::330552995255:role/GitHubOIDC-EBDeploy
+          aws-region: ${{ env.AWS_REGION }}
+
+      - name: Create EB application bundle
+        run: |
+          zip -r app.zip . \
+            -x ".git/*" ".github/*" "__pycache__/*" "*.pyc" ".venv/*"
+
+      - name: Compute version label
+        id: ver
+        run: |
+          echo "VERSION_LABEL=$(date +'%Y%m%d-%H%M%S')-${GITHUB_SHA:0:7}" >> $GITHUB_OUTPUT
+
+      - name: Upload bundle to S3
+        run: |
+          aws s3 cp app.zip s3://$S3_BUCKET/$APP_NAME/${{ steps.ver.outputs.VERSION_LABEL }}.zip
+
+      - name: Create new EB application version
+        run: |
+          aws elasticbeanstalk create-application-version \
+            --application-name "$APP_NAME" \
+            --version-label "${{ steps.ver.outputs.VERSION_LABEL }}" \
+            --source-bundle S3Bucket="$S3_BUCKET",S3Key="$APP_NAME/${{ steps.ver.outputs.VERSION_LABEL }}.zip"
+
+      - name: Update EB environment
+        run: |
+          aws elasticbeanstalk update-environment \
+            --environment-name "$ENV_NAME" \
+            --version-label "${{ steps.ver.outputs.VERSION_LABEL }}"
