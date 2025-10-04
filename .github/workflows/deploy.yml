@@ -12,7 +12,7 @@ permissions:
 env:
   AWS_REGION: eu-north-1
   APP_NAME: mysite
-  ENV_NAME: Mysite-env-1
+  ENV_NAME: Mysite-env-2
   S3_BUCKET: elasticbeanstalk-eu-north-1-330552995255
 
 jobs:
