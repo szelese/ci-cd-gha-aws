@@ -10,6 +10,7 @@ jobs:
     runs-on: ubuntu-latest
     env:
       DJANGO_SECRET_KEY: ${{ secrets.DJANGO_SECRET_KEY }}
+      DJANGO_SETTINGS_MODULE: mysite.settings
     steps:
       - uses: actions/checkout@v4
 
@@ -34,7 +35,7 @@ jobs:
 
       - name: Run Unit Tests (pytest)
         run: |
-          pytest
+          pytest --ds=mysite.settings
 #új lépések vége
 
       - name: Quick check
