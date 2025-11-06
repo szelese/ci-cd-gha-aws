@@ -1,9 +1,10 @@
 name: Deploy to Elastic Beanstalk
 
 on:
-  workflow_dispatch:
-  push:
-    branches: [ "main" ]
+  workflow_run:
+    workflows: ["CI"]
+    types:
+      - completed
 
 permissions:
   id-token: write
@@ -17,11 +18,15 @@ env:
 
 jobs:
   deploy:
+    if: ${{ github.event.workflow_run.conclusion == 'success' }}
     runs-on: ubuntu-latest
 
     steps:
       - uses: actions/checkout@v4
-
+        with:
+          ref: ${{ github.event.workflow_run.head_sha }}
+          fetch-depth: 0
+          
       - name: Set up Python
         uses: actions/setup-python@v5
         with:
