@@ -4,6 +4,7 @@ from django.urls import reverse
 class HelloViewTests(TestCase):
     def test_index_view_status_code(self):
         """
+        Tests that the 'index' view (from 'hello.urls') returns 200 OK.
         Teszteli, hogy a 'hello.urls'-ben 'index'-nek nevezett
         főoldali nézet 200-as (OK) státuszkódot ad-e vissza.
         """

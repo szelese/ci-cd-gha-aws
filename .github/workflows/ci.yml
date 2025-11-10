@@ -17,13 +17,13 @@ jobs:
       - name: Set up Python
         uses: actions/setup-python@v5
         with:
-          python-version: '3.11'   # ugyanaznak kell lennie,mint a runtime.txt-ben (python-3.11)
+          python-version: '3.11'   # Should be the same as in runtime.txt (python-3.11) / ugyanannak kell lennie,mint a runtime.txt-ben (python-3.11)
 
       - name: Install deps
         run: |
           python -m pip install --upgrade pip
           pip install -r requirements.txt
-#új lépések kezdete
+#new steps begin új lépések kezdete
       - name: Linting check (flake8)
         run: |
           flake8 . --count --select=E9,F63,F7,F82 --show-source --statistics
@@ -36,7 +36,7 @@ jobs:
       - name: Run Unit Tests (pytest)
         run: |
           pytest --ds=mysite.settings
-#új lépések vége
+#new steps end új lépések vége
 
       - name: Quick check
         run: python -c "import django,sys; print('Django', django.get_version(), '| Python', sys.version.split()[0])"

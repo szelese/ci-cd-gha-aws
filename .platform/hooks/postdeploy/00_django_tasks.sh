@@ -1,7 +1,7 @@
 #!/usr/bin/env bash
 set -euo pipefail
 
-# EB app mappa (AL2023/AL2)
+#EB app folder/ EB app mappa (AL2023/AL2)
 cd /var/app/staging 2>/dev/null || cd /var/app/current || exit 0
 
 if [ -d "/var/app/venv" ]; then
