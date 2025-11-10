@@ -7,7 +7,7 @@ def index(request):
 #Only for testing purposes/csak a tesztelés miatt
 def cpu_test(request):
     try:
-        text_to_hash="CPU test"
+        text_to_hash=b"CPU test"
         iterations = 100000
         for i in range(iterations):
             text_to_hash = hashlib.sha256(text_to_hash).digest()    
