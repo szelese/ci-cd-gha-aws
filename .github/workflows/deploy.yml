@@ -66,7 +66,9 @@ jobs:
 
       - name: Update EB environment
         run: |
+          echo "Updating environment: $ENV_NAME to version: ${{ steps.ver.outputs.VERSION_LABEL }}"
           aws elasticbeanstalk update-environment \
+            --application-name "$APP_NAME" \
             --environment-name "$ENV_NAME" \
             --version-label "${{ steps.ver.outputs.VERSION_LABEL }}"
 
@@ -74,17 +76,17 @@ jobs:
         shell: bash
         run: |
           set -euo pipefail
-          # 72 × 10s = ~12 perc várakozási ablak
+          # 72 × 10s = ~12 perc várakozási ablak / 72 × 10s = ~12 min wait window
           for i in {1..72}; do
-            read -r STATUS HEALTH <<<"$(aws elasticbeanstalk describe-environments \
+            read -r STATUS HEALTH VERSION <<<"$(aws elasticbeanstalk describe-environments \
               --application-name "$APP_NAME" \
               --environment-names "$ENV_NAME" \
-              --query 'Environments[0].[Status,Health]' \
+              --query 'Environments[0].[Status,Health,VersionLabel]' \
               --output text)"
-            echo "[$i/72] Status=$STATUS  Health=$HEALTH"
+            echo "[$i/72] Status=$STATUS  Health=$HEALTH Version=$VERSION"
 
-            # a Green-t az új UI néha 'Ok'-nak írja
-            if [[ "$STATUS" == "Ready" && ( "$HEALTH" == "Green" || "$HEALTH" == "Ok" ) ]]; then
+            # a Green-t az új UI néha 'Ok'-nak írja / # in the new UI Green is sometimes reported as 'Ok'
+            if [[ "$STATUS" == "Ready" && ( "$HEALTH" == "Green" || "$HEALTH" == "Ok" ) && "$VERSION" == "${{ steps.ver.outputs.VERSION_LABEL }}" ]]; then
               echo "Environment is Ready & Green/Ok ✅"
               exit 0
             fi

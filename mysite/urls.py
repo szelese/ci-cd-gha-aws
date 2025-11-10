@@ -18,7 +18,7 @@ from django.contrib import admin
 from django.urls import path, include # itt az includedal van kiegeszitve
 from hello.views import index
 urlpatterns = [
-    path("", index), # a gyoker 200 OK, elso helyen kell lennie
+    path("", index), # a gyoker 200 OK, elso helyen kell lennie / root 200 OK, must be first
     path('admin/', admin.site.urls),
-    path('hello/', include('hello.urls')), # ez a sor lett hozzaadva
+    path('hello/', include('hello.urls')), # ez a sor lett hozzaadva / this line was added
 ]
