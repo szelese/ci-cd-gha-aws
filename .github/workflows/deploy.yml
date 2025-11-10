@@ -72,7 +72,7 @@ jobs:
             --environment-name "$ENV_NAME" \
             --version-label "${{ steps.ver.outputs.VERSION_LABEL }}"
 
-            - name: Wait until new app version is ACTIVE (≤15 min)
+      - name: Wait until new app version is ACTIVE (≤15 min)
         shell: bash
         run: |
           set -euo pipefail
