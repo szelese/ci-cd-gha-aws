@@ -72,32 +72,30 @@ jobs:
             --environment-name "$ENV_NAME" \
             --version-label "${{ steps.ver.outputs.VERSION_LABEL }}"
 
-      - name: Wait for EB to be Ready/Green (max ~12 min)
+            - name: Wait until new app version is ACTIVE (≤15 min)
         shell: bash
         run: |
           set -euo pipefail
-          # 72 × 10s = ~12 perc várakozási ablak / 72 × 10s = ~12 min wait window
-          for i in {1..72}; do
+          TARGET="${{ steps.ver.outputs.VERSION_LABEL }}"
+          for i in {1..90}; do
             read -r STATUS HEALTH VERSION <<<"$(aws elasticbeanstalk describe-environments \
-              --application-name "$APP_NAME" \
               --environment-names "$ENV_NAME" \
               --query 'Environments[0].[Status,Health,VersionLabel]' \
               --output text)"
-            echo "[$i/72] Status=$STATUS  Health=$HEALTH Version=$VERSION"
-
-            # a Green-t az új UI néha 'Ok'-nak írja / # in the new UI Green is sometimes reported as 'Ok'
-            if [[ "$STATUS" == "Ready" && ( "$HEALTH" == "Green" || "$HEALTH" == "Ok" ) && "$VERSION" == "${{ steps.ver.outputs.VERSION_LABEL }}" ]]; then
-              echo "Environment is Ready & Green/Ok ✅"
+            VERSION="${VERSION//$'\r'/}"
+            echo "[$i/90] Status=$STATUS  Health=$HEALTH  Version=$VERSION  (target=$TARGET)"
+            if [[ "$STATUS" == "Ready" && ( "$HEALTH" == "Green" || "$HEALTH" == "Ok" ) && "$VERSION" == "$TARGET" ]]; then
+              echo "✅ Deployed app version is ACTIVE: $VERSION"
               exit 0
             fi
             sleep 10
           done
-
-          echo "⛔ Timed out waiting for Ready/Green. Latest events:"
+          echo "⛔ The app version did not switch in time ($TARGET). Latest events:"
           aws elasticbeanstalk describe-events \
             --environment-name "$ENV_NAME" \
-            --max-items 25 \
+            --max-items 40 \
             --query 'Events[*].[EventDate,Severity,Message]' \
             --output table || true
           exit 1
+
 
