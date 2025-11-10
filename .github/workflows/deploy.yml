@@ -57,7 +57,7 @@ jobs:
         run: |
           aws s3 cp app.zip s3://$S3_BUCKET/$APP_NAME/${{ steps.ver.outputs.VERSION_LABEL }}.zip
 
-      - name: Create new EB application version
+      - name: Create new EB application version   # Version check and creation / Verzió ellenőrzése és létrehozása
         run: |
           aws elasticbeanstalk create-application-version \
             --application-name "$APP_NAME" \
