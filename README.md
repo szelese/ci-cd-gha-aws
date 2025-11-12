@@ -1,23 +1,35 @@
-# ci-cd-gha-aws
 # CI/CD pipeline with GitHub Actions and AWS Elastic Beanstalk
 
-This repository is part of my thesis project.  
-It demonstrates how to set up a CI/CD pipeline using **GitHub Actions** and **AWS Elastic Beanstalk** for deploying a Django application.
+This repository was developed as part of my Bachelor’s thesis. It demonstrates how to set up a CI/CD pipeline using **GitHub Actions** and **AWS Elastic Beanstalk** for deploying a Django application.
 
 [![Deploy to Elastic Beanstalk](https://github.com/szelese/ci-cd-gha-aws/actions/workflows/deploy.yml/badge.svg)](https://github.com/szelese/ci-cd-gha-aws/actions/workflows/deploy.yml)
 
 **1. The Successful CI/CD Pipeline (GitHub Actions):**
 Below: the successful run of the `deploy.yml` workflow, including all build, test, and deploy steps.
-![Successful CI/CD Pipeline](docs/images/deploy_succes.png)
+[![CI/CD Deploy Screenshot](docs/images/deploy_success_s.png)](docs/images/deploy_success.png)
 
 **2. The Deployed Application (AWS Elastic Beanstalk):**
 This image shows the live Django application. You can visit the deployed site directly at the link below:
 
-### 🚀 [http://mysite-env-2.eba-thgvigmp.eu-north-1.elasticbeanstalk.com/](http://mysite-env-2.eba-thgvigmp.eu-north-1.elasticbeanstalk.com/)
+### [**http://mysite-env-2.eba-thgvigmp.eu-north-1.elasticbeanstalk.com/**](http://mysite-env-2.eba-thgvigmp.eu-north-1.elasticbeanstalk.com/)
 Demo site may be suspended for cost reasons.
 
 ![Live Django Application on AWS](docs/images/live_app.png)
 ---
+## 🎓 Thesis Context & Deep Dive Analysis
+
+This repository serves as the practical implementation for my engineering thesis.
+
+While this `README` summarizes the "how," the full academic paper provides the deep "why," including:
+* **DORA Metrics:** Detailed analysis of the "Elite" performance across all four key DORA metrics (Lead Time, Deployment Frequency, Change Fail Rate, and MTTR).
+* **ROI Analysis:** The full cost-benefit calculation ($21,600 savings vs. $108 cost /year).
+* **Troubleshooting Logs:** The complete "lessons learned," including the IAM/CloudTrail debugging, the `Degraded` Health Check fix, and the GDPR incident response.
+* **Load Testing:** The full results from the Locust tests that proved horizontal auto-scaling.
+
+You can download the full PDF documents here:
+
+* [🇭🇺 **Szakdolgozat (Magyar Nyelvű PDF)**](docs/thesis_hu.pdf)
+* [🇬🇧 **English Version (PDF)** — Translation in progress]()
 
 ## 🛠️ Architecture & Workflow
 
@@ -127,5 +139,20 @@ Once these steps are complete, any push to the `main` branch will automatically 
 - AWS Elastic Beanstalk
 - Python / Django
 
+---
+
 ## ✍️ Author
 Ervin Széles
+
+---
+## ⚖️ Legal Notice
+
+This repository and its contents were created as part of a Bachelor’s thesis project at Gábor Dénes University.  
+They are shared **for educational and demonstration purposes only**.
+
+You are welcome to view and learn from this project,  
+but **re-use or modification requires prior permission from the author.**
+
+The author **assumes no responsibility** for any issues, damages, or errors resulting from the use of these materials.
+
+© 2025 Ervin Széles
