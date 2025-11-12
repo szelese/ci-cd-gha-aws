@@ -23,7 +23,7 @@ This repository serves as the practical implementation for my engineering thesis
 While this `README` summarizes the "how," the full academic paper provides the deep "why," including:
 * **DORA Metrics:** Detailed analysis of the "Elite" performance across all four key DORA metrics (Lead Time, Deployment Frequency, Change Fail Rate, and MTTR).
 * **ROI Analysis:** The full cost-benefit calculation ($21,600 savings vs. $108 cost /year).
-* **Troubleshooting Logs:** The complete "lessons learned," including the IAM/CloudTrail debugging, the `Degraded` Health Check fix, and the GDPR incident response.
+* **Troubleshooting Logs:** The complete "lessons learned," including the IAM/CloudTrail debugging, the Degraded Health Check fix, and the GDPR incident response.
 * **Load Testing:** The full results from the Locust tests that proved horizontal auto-scaling.
 
 You can download the full PDF documents here:
@@ -56,7 +56,6 @@ This diagram illustrates the complete CI/CD process from a developer pushing cod
 9.  **Live:** The deployment finishes, and the user can view the new, updated version of the application.
 
 ---
-
 ## 🛠️ Local Setup
 To run this project locally, you will need **Python 3.11** and **Git** installed.
 
