@@ -11,7 +11,7 @@ Below: the successful run of the `deploy.yml` workflow, including all build, tes
 **2. The Deployed Application (AWS Elastic Beanstalk):**
 This image shows the live Django application. You can visit the deployed site directly at the link below:
 
-### [**http://mysite-env-2.eba-thgvigmp.eu-north-1.elasticbeanstalk.com/**](http://mysite-env-2.eba-thgvigmp.eu-north-1.elasticbeanstalk.com/)
+### [**http://mysite-env-2.eu-north-1.elasticbeanstalk.com/**](http://mysite-env-2.eu-north-1.elasticbeanstalk.com/)
 Demo site may be suspended for cost reasons.
 
 ![Live Django Application on AWS](docs/images/live_app.png)
