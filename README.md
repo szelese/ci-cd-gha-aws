@@ -1,8 +1,24 @@
 # CI/CD pipeline with GitHub Actions and AWS Elastic Beanstalk
 
-This repository was developed as part of my Bachelor’s thesis. It demonstrates how to set up a CI/CD pipeline using **GitHub Actions** and **AWS Elastic Beanstalk** for deploying a Django application.
+<a href="./docs/images/niu_letter_full.png">
+  <img src="docs/images/niu_letter_thumbnail.png" width="120" align="right" alt="NIÜ Recognition">
+</a>
+
 
 [![Deploy to Elastic Beanstalk](https://github.com/szelese/ci-cd-gha-aws/actions/workflows/deploy.yml/badge.svg)](https://github.com/szelese/ci-cd-gha-aws/actions/workflows/deploy.yml)
+[![NIÜ Recognition](https://img.shields.io/badge/Awarded%20by-NI%C3%9C-blueviolet?style=flat-square&logo=award)](./docs/images/niu_letter_full.png)
+
+**🏆 Concept selected by the Hungarian National Innovation Agency-NIÜ for HSUP**
+
+This repository demonstrates a professional-grade CI/CD pipeline. The project's architectural concept was selected by the professional jury of the **Hungarian National Innovation Agency-NIÜ** for the **Hungarian Startup University Program (HSUP)**, providing essential professional validation.
+
+<br clear="right"/>
+
+---
+---
+
+
+
 
 **1. The Successful CI/CD Pipeline (GitHub Actions):**
 Below: the successful run of the `deploy.yml` workflow, including all build, test, and deploy steps.
@@ -151,17 +167,19 @@ Detailed statistical data, including execution timings and load tests, can be fo
 
 
 ---
-## 🏆 Recognition & Innovation
-- **Hungarian National Innovation Agency (NIÜ):** This project and its architectural approach were recognized by the National Innovation Agency for their potential in cloud-native automation.
-- [![NIÜ Recognition Letter](docs/images/niu_letter_thumbnail.png)](./docs/images/niu_letter_full.png)
-  *Click the image to view the full recognition letter.*
-
----
 
 ## 🛠️ Technologies
 - GitHub Actions
 - AWS Elastic Beanstalk
 - Python / Django
+
+---
+
+### 🌟 Featured Recognition
+> "The project's architectural one-pager was selected by the professional jury of the Hungarian National Innovation Agency (NIÜ) for the Hungarian Startup University Program (HSUP), recognizing its innovative potential in cloud automation."
+> 
+> [![NIÜ Recognition Letter Thumbnail](docs/images/niu_letter_thumbnail.png)](./docs/images/niu_letter_full.png)
+> *Click to view the full recognition letter*
 
 ---
 ## 🚀 Project Evolution
