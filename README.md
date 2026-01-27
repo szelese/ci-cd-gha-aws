@@ -11,8 +11,7 @@ Below: the successful run of the `deploy.yml` workflow, including all build, tes
 **2. The Deployed Application (AWS Elastic Beanstalk):**
 This image shows the live Django application. You can visit the deployed site directly at the link below:
 
-### [**http://mysite-env-2.eu-north-1.elasticbeanstalk.com/**](http://mysite-env-2.eu-north-1.elasticbeanstalk.com/)
-Demo site may be suspended for cost reasons.
+Demo site suspended for cost reasons.
 
 ![Live Django Application on AWS](docs/images/live_app.png)
 ---
@@ -27,9 +26,10 @@ While this `README` summarizes the "how," the full academic paper provides the d
 * **Load Testing:** The full results from the Locust tests that proved horizontal auto-scaling.
 
 You can download the full PDF documents here:
-
 * [🇭🇺 **Szakdolgozat (Magyar Nyelvű PDF)**](docs/thesis_hu.pdf)
-* [🇬🇧 **English Version (PDF)** — Translation in progress]()
+
+* [🇬🇧 **English Version (PDF)** — Annex1-Step-by-Step Implementation Guide](docs/v1-StepByStep.pdf)
+* [🇬🇧 **English Version (PDF)** — Annex3-Performance Metrics and Load Testing](docs/v1_PerformanceMetricsAndLoadTesting.pdf)
 
 ## 🛠️ Architecture & Workflow
 
@@ -132,6 +132,31 @@ Go to your repository's `Settings > Secrets and variables > Actions` and add the
 Once these steps are complete, any push to the `main` branch will automatically trigger the `deploy.yml` workflow, which will assume the IAM role via OIDC and deploy the application to your Elastic Beanstalk environment.
 
 ---
+### 🏛️ Design Phase & Concept (v1)
+Engineering Note: This design sketch represents the theoretical foundation of the project. The primary objective of Phase V1 was not complex application logic, but the demonstration of a secure, keyless (OIDC) CI/CD process within an AWS Elastic Beanstalk environment. This "template" established the groundwork for the subsequent agnostic approach, where automation and security are decoupled from the business logic.
+![Early phase plan](docs/images/plan.png)
+
+---
+
+## 📊 Performance & DORA Metrics (Thesis Analysis)
+This project was not just about deployment, but also about rigorous measurement and optimization. 
+
+Detailed statistical data, including execution timings and load tests, can be found in the [Performance Metrics Report](./v1_PerformanceMetricsAndLoadTesting.pdf).
+
+### Key Technical Achievements:
+- **Load Testing (Locust):** Sustained **150.9 requests/second** with a **P99 latency of 395ms**. Identified the Gunicorn/Network I/O bottleneck on t3.micro instances [v1_PerformanceMetricsAndLoadTesting PDF page 6].
+- **Deployment Lead Time:** Achieved an average verified deployment time of **< 60 seconds** across 15+ iterations [v1_PerformanceMetricsAndLoadTesting PDF page 1].
+- **Auto-scaling & Self-healing:** Successfully verified horizontal scaling and instance health recovery during stress tests [v1_PerformanceMetricsAndLoadTesting PDF page 7].
+- **Security-First Fine-tuning:** Iterated the IAM Least Privilege policy **15+ times** to reach an optimal security posture without compromising automated delivery. [v1_StepByStep.pdf Step 81]
+
+
+---
+## 🏆 Recognition & Innovation
+- **Hungarian National Innovation Agency (NIÜ):** This project and its architectural approach were recognized by the National Innovation Agency for their potential in cloud-native automation.
+- [![NIÜ Recognition Letter](docs/images/niu_letter_thumbnail.png)](./docs/images/niu_letter_full.png)
+  *Click the image to view the full recognition letter.*
+
+---
 
 ## 🛠️ Technologies
 - GitHub Actions
@@ -139,10 +164,16 @@ Once these steps are complete, any push to the `main` branch will automatically 
 - Python / Django
 
 ---
+## 🚀 Project Evolution
+**Status: V1 Baseline (Archived)** This repository represents the foundational phase of my research. While this version is complete and served as the primary proof-of-concept for my thesis, the architectural evolution continues.
 
+- **v1 (This repo):** Monolithic Django on AWS Elastic Beanstalk (PaaS).
+- **v2 (Active):** Transitioned to a **Cloud-Native, Serverless architecture** using AWS Lambda and Docker with a Hexagonal Design pattern.
+
+Check out the next evolution here: **[Project v2 Repository](https://github.com/szelese/v2-agnostic-lambda-core)**
+---
 ## ✍️ Author
 Ervin Széles
-
 ---
 ## ⚖️ Legal Notice
 
