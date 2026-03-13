@@ -191,7 +191,7 @@ Detailed statistical data, including execution timings and load tests, can be fo
 Check out the next evolution here: **[Project v2 Repository](https://github.com/szelese/v2-agnostic-lambda-core)**
 ---
 ## ✍️ Author
-Ervin Széles
+Ervin Wallin (formerly Ervin Széles)
 ---
 ## ⚖️ Legal Notice
 
@@ -203,4 +203,4 @@ but **re-use or modification requires prior permission from the author.**
 
 The author **assumes no responsibility** for any issues, damages, or errors resulting from the use of these materials.
 
-© 2025 Ervin Széles
+Ervin Wallin (formerly Ervin Széles) © 2025
